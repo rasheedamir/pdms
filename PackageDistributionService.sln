@@ -43,6 +43,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docs", "Docs", "{0AE38FB7-A
 	ProjectSection(SolutionItems) = preProject
 		Docs\PDMS Architecture.jpg = Docs\PDMS Architecture.jpg
 		Docs\PDMS Architecture.xml = Docs\PDMS Architecture.xml
+		Technologies.txt = Technologies.txt
 	EndProjectSection
 EndProject
 Global

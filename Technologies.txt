@@ -1,0 +1,10 @@
+Here is summarized description of the technologies/frameworks used in the PDMS:
+
+1. DI/IoC : Spring.Net
+2. ORM : NHibernate
+3. Database : MySql
+4. Unit/Integration testing : NUnit
+5. AOP : Spring.Aop
+6. Logging : log4net
+7. WebServices : WCF
+8. Framework : .Net4.0

@@ -39,6 +39,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MySql", "MySql", "{78BE6979
 		Data\Schema.sql = Data\Schema.sql
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docs", "Docs", "{0AE38FB7-AC2F-4DCC-8CCE-F68672A01A80}"
+	ProjectSection(SolutionItems) = preProject
+		Docs\PDMS Architecture.jpg = Docs\PDMS Architecture.jpg
+		Docs\PDMS Architecture.xml = Docs\PDMS Architecture.xml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

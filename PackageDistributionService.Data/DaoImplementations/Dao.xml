@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<objects xmlns="http://www.springframework.net"
+         xmlns:db="http://www.springframework.net/database"
+         xmlns:tx="http://www.springframework.net/tx">
+
+  <!-- Referenced by main application context configuration file -->
+  <description>
+    The PDS (package distribution service) object definitions for the Data Access Objects.
+  </description>
+
+  <!-- Property placeholder configurer for database settings -->
+  <object type="Spring.Objects.Factory.Config.PropertyPlaceholderConfigurer, Spring.Core">
+    <property name="ConfigSections" value="databaseSettings"/>
+  </object>
+
+  <!-- Database Configuration -->
+  <db:provider id="DbProvider"
+                   provider="MySql-5.2.3"
+                   connectionString="Server=${db.datasource};Database=${db.database};User ID=${db.user};Password=${db.password};"/>
+
+  <!-- NHibernate SessionFactory configuration -->
+  <object id="NHibernateSessionFactory" type="Spring.Data.NHibernate.LocalSessionFactoryObject, Spring.Data.NHibernate32">
+    <property name="DbProvider" ref="DbProvider"/>
+    <property name="MappingAssemblies">
+      <list>
+        <value>PackageDistributionService.Data</value>
+      </list>
+    </property>
+    <property name="HibernateProperties">
+      <dictionary>
+        <entry key="hibernate.connection.provider" value="NHibernate.Connection.DriverConnectionProvider"/>
+        <entry key="connection.driver_class" value="NHibernate.Driver.MySqlDataDriver"/>
+        <entry key="dialect" value="NHibernate.Dialect.MySQLDialect"/>
+        <entry key="use_proxy_validator" value="false" />
+        <entry key="show_sql" value="true"/>
+      </dictionary>
+    </property>
+    <!-- provides integation with Spring's declarative transaction management features -->
+    <property name="ExposeTransactionAwareSessionFactory" value="true" />
+  </object>
+
+  <!-- Transaction Management Strategy - local database transactions -->
+  <object id="transactionManager"
+        type="Spring.Data.NHibernate.HibernateTransactionManager, Spring.Data.NHibernate32">
+    <property name="DbProvider" ref="DbProvider"/>
+    <property name="SessionFactory" ref="NHibernateSessionFactory"/>
+  </object>
+
+  <!-- Transaction aspect -->
+  <tx:attribute-driven transaction-manager="transactionManager"/>
+  
+  <!-- Exception translation object post processor -->
+  <object type="Spring.Dao.Attributes.PersistenceExceptionTranslationPostProcessor, Spring.Data"/>
+
+  <!-- Data Access Objects -->
+  <object id="GroupDao" type="PackageDistributionService.Data.DaoImplementations.GroupDao, PackageDistributionService.Data">
+    <property name="SessionFactory" ref="NHibernateSessionFactory"/>
+  </object>
+
+  <object id="GroupStoreDao" type="PackageDistributionService.Data.DaoImplementations.GroupStoreDao, PackageDistributionService.Data">
+    <property name="SessionFactory" ref="NHibernateSessionFactory"/>
+  </object>
+
+  <object id="PackageVersionDao" type="PackageDistributionService.Data.DaoImplementations.PackageVersionDao, PackageDistributionService.Data">
+    <property name="SessionFactory" ref="NHibernateSessionFactory"/>
+  </object>
+
+  <object id="PosCallLogDao" type="PackageDistributionService.Data.DaoImplementations.PosCallLogDao, PackageDistributionService.Data">
+    <property name="SessionFactory" ref="NHibernateSessionFactory"/>
+  </object>
+
+  <object id="PackageGroupDao" type="PackageDistributionService.Data.DaoImplementations.PackageGroupDao, PackageDistributionService.Data">
+    <property name="SessionFactory" ref="NHibernateSessionFactory"/>
+  </object>
+
+  <object id="PosAssemblyLogDao" type="PackageDistributionService.Data.DaoImplementations.PosAssemblyLogDao, PackageDistributionService.Data">
+    <property name="SessionFactory" ref="NHibernateSessionFactory"/>
+  </object>
+  
+  <!-- Active Session Manager -->  
+  <object id="ActiveSessionManager" type="PackageDistributionService.Data.NHibernate.ActiveSessionManager, PackageDistributionService.Data">
+    <property name="SessionFactory" ref="NHibernateSessionFactory"/>
+  </object>
+
+</objects>

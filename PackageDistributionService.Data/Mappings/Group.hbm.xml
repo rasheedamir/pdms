@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  
+  <class name="PackageDistributionService.Core.Domain.Group, PackageDistributionService.Core" table="groups" lazy="true" proxy="PackageDistributionService.Core.Domain.IGroup, PackageDistributionService.Core">
+
+    <!-- GroupId : Primary key column; id of the group -->
+    <id name="Id">
+      <generator class="identity" />
+      <!--column name="GroupId" sql-type="int(11)" not-null="true" /-->
+    </id>
+    
+    <!-- GroupName : Name of the group -->
+    <property name="Name">
+      <column name="Name" sql-type="varchar(100)" not-null="false" />
+    </property>
+    
+    <!-- CreationTimestamp : Time when group was created -->
+    <property name="CreationTimestamp">
+      <column name="CreationTimestamp" sql-type="datetime" not-null="false" />
+    </property>
+    
+    <!-- GroupStores : Which stores belong to this group -->
+    <bag name="GroupStores" inverse="true" cascade="none">
+      <key column="GroupId" />
+      <one-to-many class="PackageDistributionService.Core.Domain.GroupStore, PackageDistributionService.Core" />
+    </bag>
+    
+    <!-- PackageGroups : Which packages have been deployed to this group -->
+    <bag name="PackageGroups" inverse="true" cascade="none">
+      <key column="GroupId" />
+      <one-to-many class="PackageDistributionService.Core.Domain.PackageGroup, PackageDistributionService.Core" />
+    </bag>
+    
+  </class>
+
+</hibernate-mapping>

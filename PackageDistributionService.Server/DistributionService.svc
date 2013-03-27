@@ -1,0 +1,4 @@
+﻿<%@ ServiceHost Language="C#" 
+                Debug="true"
+                Service="DistributionService"
+                Factory="Spring.ServiceModel.Activation.ServiceHostFactory" %>

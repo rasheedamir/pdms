@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<objects xmlns="http://www.springframework.net"
+         xmlns:aop="http://www.springframework.net/aop">
+
+  <!-- Complete Reference: http://www.springframework.net/doc-latest/reference/html/aop.html -->
+  <!-- Referenced by main application context configuration file -->
+
+  <description>
+    The PDS (package distribution service) object definitions for the aspects/cross cutting concerns.
+  </description>
+
+  <!-- Define performance monitoring pointcut -->
+  <object id="PerformanceMonitoringPointcut" type="PackageDistributionService.Aspects.PerformanceMonitoring.PerformanceMonitoringAttribute, PackageDistributionService.Aspects"/>
+  
+  <!-- Define performance monitoring advice -->
+  <object id="PerformanceMonitoringAdvice" type="PackageDistributionService.Aspects.PerformanceMonitoring.PerformanceMonitoringAdvice, PackageDistributionService.Aspects"/>
+  
+  <!-- Define performance monitoring advisor -->
+  <object id="PerformanceMonitoringAdvisor" type="Spring.Aop.Support.AttributeMatchMethodPointcutAdvisor, Spring.Aop">
+    <property name="Advice" ref="PerformanceMonitoringAdvice"/>
+    <property name="Attribute" value="PackageDistributionService.Aspects.PerformanceMonitoring.PerformanceMonitoringAttribute, PackageDistributionService.Aspects"/>
+  </object>
+  
+  <!-- A more general and extremely powerful auto proxy creator is DefaultAdvisorAutoProxyCreator. This will automatically apply eligible advisors in the 
+       current application context, without the need to include specific object names in the autoproxy advisor's object definition.  
+       The DefaultAdvisorAutoProxyCreator will automatically evaluate the pointcut contained in each advisor, to see what (if any) advice it should apply 
+       to each object defined in the application context. This means that any number of advisors can be applied automatically to each business object. 
+       If no pointcut in any of the advisors matches any method in a business object, the object will not be proxied.
+       The DefaultAdvisorAutoProxyCreator is very useful if you want to apply the same advice consistently to many business objects. Once the infrastructure 
+       definitions are in place, you can simply add new business objects without including specific proxy configuration. You can also drop in additional 
+       aspects very easily for example, (tracing or performance monitoring aspects) with minimal change to configuration.-->
+  <object id="ProxyCreator" type="Spring.Aop.Framework.AutoProxy.DefaultAdvisorAutoProxyCreator, Spring.Aop"/>
+  
+</objects>

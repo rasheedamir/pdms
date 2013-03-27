@@ -1,0 +1,121 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{726AD704-686C-4510-91CA-7727A4D7B060}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>PackageDistributionService.Tests</RootNamespace>
+    <AssemblyName>PackageDistributionService.Tests</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Common.Logging">
+      <HintPath>..\Library\CommonsLogging\Common.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Common.Logging.Log4Net">
+      <HintPath>..\Library\CommonsLogging\Common.Logging.Log4Net.dll</HintPath>
+    </Reference>
+    <Reference Include="Iesi.Collections">
+      <HintPath>..\Library\NHibernate32\Iesi.Collections.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net">
+      <HintPath>..\Library\Log4Net\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="NHibernate">
+      <HintPath>..\Library\NHibernate32\NHibernate.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.framework">
+      <HintPath>..\Library\NUnit\nunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="Spring.Aop">
+      <HintPath>..\Library\Spring\Spring.Aop.dll</HintPath>
+    </Reference>
+    <Reference Include="Spring.Core">
+      <HintPath>..\Library\Spring\Spring.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Spring.Data">
+      <HintPath>..\Library\Spring\Spring.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Spring.Data.NHibernate32">
+      <HintPath>..\Library\Spring\Spring.Data.NHibernate32.dll</HintPath>
+    </Reference>
+    <Reference Include="Spring.Testing.NUnit">
+      <HintPath>..\Library\Spring\Spring.Testing.NUnit.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="DaoIntegrationTests\AbstractDaoIntegrationTests.cs" />
+    <Compile Include="DaoIntegrationTests\CrudTest.cs" />
+    <Compile Include="DaoIntegrationTests\EntityBuilder.cs" />
+    <Compile Include="DaoIntegrationTests\GroupDaoIntegrationTests.cs" />
+    <Compile Include="DaoIntegrationTests\GroupStoreDaoIntegrationTests.cs" />
+    <Compile Include="DaoIntegrationTests\NHibernateTest.cs" />
+    <Compile Include="DaoIntegrationTests\PackageGroupDaoIntegrationTests.cs" />
+    <Compile Include="DaoIntegrationTests\PackageVersionDaoIntegrationTests.cs" />
+    <Compile Include="DaoIntegrationTests\PosAssemblyLogDaoIntegrationTests.cs" />
+    <Compile Include="DaoIntegrationTests\PosCallLogDaoIntegrationTests.cs" />
+    <Compile Include="AbstractIntegrationTests.cs" />
+    <Compile Include="ServiceIntegrationTests\DistributionServiceIntegrationTests.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="IntegrationTests\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\PackageDistributionService.Core\PackageDistributionService.Core.csproj">
+      <Project>{01795b89-a7dd-4c5a-b392-074e1e029f5e}</Project>
+      <Name>PackageDistributionService.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PackageDistributionService.Data\PackageDistributionService.Data.csproj">
+      <Project>{f72b99f3-1c35-4496-b0b9-f90115cc8afa}</Project>
+      <Name>PackageDistributionService.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PackageDistributionService.Service\PackageDistributionService.Service.csproj">
+      <Project>{de08d2a0-7183-4a80-97c2-d3880c76b308}</Project>
+      <Name>PackageDistributionService.Service</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectBase.Data\ProjectBase.Data.csproj">
+      <Project>{8c9e8aa8-b98f-4983-8e46-a4c3cc3c2daa}</Project>
+      <Name>ProjectBase.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectBase.Utils\ProjectBase.Utils.csproj">
+      <Project>{3a37e609-5f71-4ceb-88a2-aed8f54a35fd}</Project>
+      <Name>ProjectBase.Utils</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

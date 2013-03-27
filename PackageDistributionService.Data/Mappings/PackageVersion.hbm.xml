@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" assembly="PackageDistributionService.Core" namespace="PackageDistributionService.Core.Domain">
+
+  <class name="PackageVersion" table="packageversions" lazy="true" proxy="IPackageVersion">
+
+    <id name="Id">
+      <generator class="identity" />
+      <!-- column name="PackageVersionId" sql-type="int(11)" not-null="true" /-->
+    </id>
+    
+    <property name="VersionNumber">
+      <column name="VersionNumber" sql-type="varchar(50)" not-null="false" />
+    </property>
+    
+    <property name="PackagePath">
+      <column name="PackagePath" sql-type="varchar(75)" not-null="false" />
+    </property>
+    
+    <property name="Comment">
+      <column name="Comment" sql-type="varchar(250)" not-null="false" />
+    </property>
+    
+    <property name="CreationTimestamp">
+      <column name="CreationTimestamp" sql-type="datetime" not-null="false" />
+    </property>
+
+    <!-- ToDo: Need to fix this issue. My test case aborts when packagegroups has more then one row! Very weird... Seems circular dependency! Some mapping issue.-->
+    <!--bag name="PackageGroups" inverse="true" cascade="none">
+      <key column="PackageVersionId" />
+      <one-to-many class="PackageGroup" />
+    </bag>
+
+    <bag name="PosCallLogs" inverse="true" cascade="none">
+      <key column="PackageVersionId" />
+      <one-to-many class="PosCallLog" />
+    </bag -->
+
+  </class>
+
+</hibernate-mapping>

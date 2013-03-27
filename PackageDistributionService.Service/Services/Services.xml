@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<objects xmlns="http://www.springframework.net"
+         xmlns:tx="http://www.springframework.net/tx"
+         xmlns:aop="http://www.springframework.net/aop">
+
+  <!-- Referenced by main application context configuration file -->
+
+  <description>
+    The PDS (package distribution service) object definitions for the Service Objects.
+  </description>
+
+  <!-- Services -->
+  <!-- Set the service XML meta-data object singleton attribute to false, so the IoC container creates a new instance. -->
+  <object id="DistributionService" type="PackageDistributionService.Service.Services.DistributionService, PackageDistributionService.Service" singleton="false">
+    <property name="PosCallLogDao" ref="PosCallLogDao"/>
+    <property name="PosAssemblyLogDao" ref="PosAssemblyLogDao"/>    
+    <property name="PackageVersionDao" ref="PackageVersionDao"/>
+    <property name="PackageGroupDao" ref="PackageGroupDao"/>
+    <property name="GroupStoreDao" ref="GroupStoreDao"/>  
+  </object>
+
+  <tx:attribute-driven/>
+
+</objects>

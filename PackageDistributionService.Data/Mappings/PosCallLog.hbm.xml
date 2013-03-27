@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" assembly="PackageDistributionService.Core" namespace="PackageDistributionService.Core.Domain">
+
+  <class name="PosCallLog" table="poscalllogs" lazy="true" proxy="IPosCallLog">
+
+    <id name="Id">
+      <generator class="identity" />
+      <!-- column name="PosCallLogId" sql-type="int(11)" not-null="true" /-->
+    </id>
+    
+    <property name="CoopStoreId">
+      <column name="CoopStoreId" sql-type="int(11)" not-null="false" />
+    </property>
+    
+    <property name="PosNumber">
+      <column name="PosNumber" sql-type="varchar(100)" not-null="false" />
+    </property>
+    
+    <property name="CallTimestamp">
+      <column name="CallTimestamp" sql-type="datetime" not-null="false" />
+    </property>
+    
+    <many-to-one name="PackageVersion" class="PackageVersion" insert="false" update="false" lazy="false">
+      <column name="PackageVersionId" sql-type="int(11)" not-null="false" />
+    </many-to-one>
+
+    <property name="PackageVersionId">
+      <column name="PackageVersionId" sql-type="int(11)" not-null="false" />
+    </property>
+    
+    <property name="TerminalSerialNumber">
+      <column name="TerminalSerialNumber" sql-type="varchar(100)" not-null="false" />
+    </property>
+
+    <property name="IpAddress">
+      <column name="IpAddress" sql-type="varchar(25)" not-null="false" />
+    </property>
+    
+    <property name="HostName">
+      <column name="HostName" sql-type="varchar(100)" not-null="false" />
+    </property>
+    
+    <property name="PosManufacturerName">
+      <column name="PosManufacturerName" sql-type="varchar(100)" not-null="false" />
+    </property>
+    
+    <property name="PosVersion">
+      <column name="PosVersion" sql-type="varchar(100)" not-null="false" />
+    </property>
+    
+    <bag name="PosAssemblyLogs" inverse="true" cascade="none">
+      <key column="PosCallLogId" />
+      <one-to-many class="PosAssemblyLog" />
+    </bag>
+
+  </class>
+
+</hibernate-mapping>

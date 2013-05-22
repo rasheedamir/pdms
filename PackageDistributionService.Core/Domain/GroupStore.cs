@@ -5,7 +5,7 @@ namespace PackageDistributionService.Core.Domain
     /// <summary>
     /// GroupStore entity
     /// </summary>
-    public class GroupStore : Entity, IGroupStore
+    public class GroupStore : Entity
     {
         #region Constructors
         #endregion
@@ -13,7 +13,7 @@ namespace PackageDistributionService.Core.Domain
         #region Members
 
         private int _groupId;
-        private IGroup _group;
+        private Group _group;
         private int _coopStoreId;
 
         #endregion
@@ -33,7 +33,7 @@ namespace PackageDistributionService.Core.Domain
         /// <summary>
         /// group entity
         /// </summary>
-        public IGroup Group
+        public Group Group
         {
             get { return _group; }
             set { _group = value; }

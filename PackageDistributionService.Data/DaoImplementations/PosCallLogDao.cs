@@ -9,7 +9,7 @@ namespace PackageDistributionService.Data.DaoImplementations
     /// Concrete DAO for accessing instances of <see cref="PosCallLog" /> from DB.
     /// </summary>
     [Repository]
-    public class PosCallLogDao : AbstractNHibernateDao<IPosCallLog, int>, IPosCallLogDao
+    public class PosCallLogDao : AbstractNHibernateDao<PosCallLog, int>, IPosCallLogDao
     {        
     }
 }

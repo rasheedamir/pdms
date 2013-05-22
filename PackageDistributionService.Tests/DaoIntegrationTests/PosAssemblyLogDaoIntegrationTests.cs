@@ -7,7 +7,7 @@ using PackageDistributionService.Core.Domain;
 
 namespace PackageDistributionService.Tests.DaoIntegrationTests
 {
-    public class PosAssemblyLogDaoIntegrationTests : CrudTest<IPosAssemblyLog, int>
+    public class PosAssemblyLogDaoIntegrationTests : CrudTest<PosAssemblyLog, int>
     {
         private static readonly ILog Log = LogManager.GetLogger(typeof(PosAssemblyLogDaoIntegrationTests));
 
@@ -80,7 +80,7 @@ namespace PackageDistributionService.Tests.DaoIntegrationTests
         /// 
         /// </summary>
         /// <returns></returns>
-        protected override IPosAssemblyLog BuildEntity()
+        protected override PosAssemblyLog BuildEntity()
         {
             return EntityBuilder.BuildPosAssemblyLog(Session);
         }
@@ -89,7 +89,7 @@ namespace PackageDistributionService.Tests.DaoIntegrationTests
         /// 
         /// </summary>
         /// <param name="entity"></param>
-        protected override void ModifyEntity(IPosAssemblyLog entity)
+        protected override void ModifyEntity(PosAssemblyLog entity)
         {
             entity.AssemblyName = "I am updated new assembly";
             entity.AssemblyVersion = "6.5.4.3";
@@ -100,7 +100,7 @@ namespace PackageDistributionService.Tests.DaoIntegrationTests
         /// </summary>
         /// <param name="expectedEntity"></param>
         /// <param name="actualEntity"></param>
-        protected override void AssertAreEqual(IPosAssemblyLog expectedEntity, IPosAssemblyLog actualEntity)
+        protected override void AssertAreEqual(PosAssemblyLog expectedEntity, PosAssemblyLog actualEntity)
         {
             Assert.AreEqual(expectedEntity.Id, actualEntity.Id);
             Assert.AreEqual(expectedEntity.AssemblyName, expectedEntity.AssemblyName);
@@ -114,7 +114,7 @@ namespace PackageDistributionService.Tests.DaoIntegrationTests
         /// 
         /// </summary>
         /// <param name="entity"></param>
-        protected override void AssertValidId(IPosAssemblyLog entity)
+        protected override void AssertValidId(PosAssemblyLog entity)
         {
             Assert.AreEqual(entity.Id > 0, true);
         }

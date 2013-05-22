@@ -2,55 +2,61 @@
 
 <hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" assembly="PackageDistributionService.Core" namespace="PackageDistributionService.Core.Domain">
 
-  <class name="PosCallLog" table="poscalllogs" lazy="true" proxy="IPosCallLog">
+  <class name="PosCallLog" table="pos_call_log" lazy="true">
 
     <id name="Id">
       <generator class="identity" />
       <!-- column name="PosCallLogId" sql-type="int(11)" not-null="true" /-->
     </id>
+
+    <!-- Version -->
+    <property name="Version">
+      <column name="version" sql-type="int" not-null="false" />
+    </property>
+
+    <!-- DateCreated -->
+    <property name="DateCreated">
+      <column name="date_created" sql-type="datetime" not-null="false" />
+    </property>
     
     <property name="CoopStoreId">
-      <column name="CoopStoreId" sql-type="int(11)" not-null="false" />
+      <column name="kf_store_id" sql-type="int(11)" not-null="false" />
     </property>
     
     <property name="PosNumber">
-      <column name="PosNumber" sql-type="varchar(100)" not-null="false" />
-    </property>
-    
-    <property name="CallTimestamp">
-      <column name="CallTimestamp" sql-type="datetime" not-null="false" />
+      <column name="pos_number" sql-type="varchar(100)" not-null="false" />
     </property>
     
     <many-to-one name="PackageVersion" class="PackageVersion" insert="false" update="false" lazy="false">
-      <column name="PackageVersionId" sql-type="int(11)" not-null="false" />
+      <column name="package_version_Id" sql-type="int(11)" not-null="false" />
     </many-to-one>
 
     <property name="PackageVersionId">
-      <column name="PackageVersionId" sql-type="int(11)" not-null="false" />
+      <column name="package_version_Id" sql-type="int(11)" not-null="false" />
     </property>
     
     <property name="TerminalSerialNumber">
-      <column name="TerminalSerialNumber" sql-type="varchar(100)" not-null="false" />
+      <column name="terminal_serial_number" sql-type="varchar(100)" not-null="false" />
     </property>
 
     <property name="IpAddress">
-      <column name="IpAddress" sql-type="varchar(25)" not-null="false" />
+      <column name="ip_address" sql-type="varchar(25)" not-null="false" />
     </property>
     
     <property name="HostName">
-      <column name="HostName" sql-type="varchar(100)" not-null="false" />
+      <column name="host_name" sql-type="varchar(100)" not-null="false" />
     </property>
     
     <property name="PosManufacturerName">
-      <column name="PosManufacturerName" sql-type="varchar(100)" not-null="false" />
+      <column name="pos_manufacturer_name" sql-type="varchar(100)" not-null="false" />
     </property>
     
     <property name="PosVersion">
-      <column name="PosVersion" sql-type="varchar(100)" not-null="false" />
+      <column name="pos_version" sql-type="varchar(100)" not-null="false" />
     </property>
     
     <bag name="PosAssemblyLogs" inverse="true" cascade="none">
-      <key column="PosCallLogId" />
+      <key column="pos_call_log_id" />
       <one-to-many class="PosAssemblyLog" />
     </bag>
 

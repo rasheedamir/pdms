@@ -11,14 +11,14 @@ namespace PackageDistributionService.Data.DaoImplementations
     /// Concrete DAO for accessing instances of <see cref="GroupStore" /> from DB.
     /// </summary>
     [Repository]
-    public class GroupStoreDao : AbstractNHibernateDao<IGroupStore, int>, IGroupStoreDao
+    public class GroupStoreDao : AbstractNHibernateDao<GroupStore, int>, IGroupStoreDao
     {
         /// <summary>
         /// Get all by coop store id
         /// </summary>
         /// <param name="coopStoreId"></param>
         /// <returns></returns>
-        public IList<IGroupStore> GetAllByCoopStoreId(int coopStoreId)
+        public IList<GroupStore> GetAllByCoopStoreId(int coopStoreId)
         {
             var criterion = new List<ICriterion>
                 {

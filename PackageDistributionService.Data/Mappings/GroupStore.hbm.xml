@@ -2,7 +2,7 @@
 
 <hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" assembly="PackageDistributionService.Core" namespace="PackageDistributionService.Core.Domain">
 
-  <class name="GroupStore" table="groupstores" lazy="true" proxy="IGroupStore">
+  <class name="GroupStore" table="group_store" lazy="true">
 
     <!-- GroupStoreId : Primary key column; id of the group -->
     <id name="Id">
@@ -10,12 +10,22 @@
       <!--column name="GroupId" sql-type="int(11)" not-null="true" /-->
     </id>
 
+    <!-- Version -->
+    <property name="Version">
+      <column name="version" sql-type="int" not-null="false" />
+    </property>
+
+    <!-- DateCreated -->
+    <property name="DateCreated">
+      <column name="date_created" sql-type="datetime" not-null="false" />
+    </property>
+    
     <property name="GroupId">
-      <column name="GroupId" sql-type="int(11)" not-null="false" />
+      <column name="kf_group_id" sql-type="int(11)" not-null="false" />
     </property>
 
     <property name="CoopStoreId">
-      <column name="CoopStoreId" sql-type="int(11)" not-null="false" />
+      <column name="kf_store_id" sql-type="int(11)" not-null="false" />
     </property>
 
     <!-- many-to-one name="Group" class="Group" insert="false" update="false" lazy="false">

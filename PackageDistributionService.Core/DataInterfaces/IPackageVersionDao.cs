@@ -6,12 +6,12 @@ namespace PackageDistributionService.Core.DataInterfaces
     /// <summary>
     /// PackageVersion related DAO operations interface
     /// </summary>
-    public interface IPackageVersionDao : IDao<IPackageVersion, int>, ISupportsSaveDao<IPackageVersion, int>, ISupportsCriteriaDao<IPackageVersion>, ISupportsDeleteDao<IPackageVersion>
+    public interface IPackageVersionDao : IDao<PackageVersion, int>, ISupportsSaveDao<PackageVersion, int>, ISupportsCriteriaDao<PackageVersion>, ISupportsDeleteDao<PackageVersion>
     {
         /// <summary>
         /// Returns the latest package version
         /// </summary>
         /// <returns></returns>
-        IPackageVersion GetLatestPackageVersion();
+        PackageVersion GetLatestPackageVersion();
     }
 }

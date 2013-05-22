@@ -9,7 +9,7 @@ namespace PackageDistributionService.Data.DaoImplementations
     /// Concrete DAO for accessing instances of <see cref="Group" /> from DB.
     /// </summary>
     [Repository]
-    public class GroupDao : AbstractNHibernateDao<IGroup, int>, IGroupDao
+    public class GroupDao : AbstractNHibernateDao<Group, int>, IGroupDao
     {
     }
 }

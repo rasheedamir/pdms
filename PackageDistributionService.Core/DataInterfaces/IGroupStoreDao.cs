@@ -7,13 +7,13 @@ namespace PackageDistributionService.Core.DataInterfaces
     /// <summary>
     /// GroupStore related DAO operations interface
     /// </summary>
-    public interface IGroupStoreDao : IDao<IGroupStore, int>, ISupportsSaveDao<IGroupStore, int>, ISupportsCriteriaDao<IGroupStore>, ISupportsDeleteDao<IGroupStore>
+    public interface IGroupStoreDao : IDao<GroupStore, int>, ISupportsSaveDao<GroupStore, int>, ISupportsCriteriaDao<GroupStore>, ISupportsDeleteDao<GroupStore>
     {
         /// <summary>
         /// 
         /// </summary>
         /// <param name="coopStoreId"></param>
         /// <returns></returns>
-        IList<IGroupStore> GetAllByCoopStoreId(int coopStoreId);
+        IList<GroupStore> GetAllByCoopStoreId(int coopStoreId);
     }
 }

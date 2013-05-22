@@ -43,23 +43,16 @@
     <Compile Include="DataInterfaces\IPosCallLogDao.cs" />
     <Compile Include="Domain\Group.cs" />
     <Compile Include="Domain\GroupStore.cs" />
-    <Compile Include="Domain\IGroup.cs" />
-    <Compile Include="Domain\IGroupStore.cs" />
-    <Compile Include="Domain\IPackageGroup.cs" />
-    <Compile Include="Domain\IPackageVersion.cs" />
-    <Compile Include="Domain\IPosAssemblyLog.cs" />
-    <Compile Include="Domain\IPosCallLog.cs" />
     <Compile Include="Domain\PackageGroup.cs" />
     <Compile Include="Domain\PackageVersion.cs" />
     <Compile Include="Domain\PosAssemblyLog.cs" />
     <Compile Include="Domain\PosCallLog.cs" />
     <Compile Include="Dto\AssemblyInfo.cs" />
     <Compile Include="Dto\BaseDto.cs" />
-    <Compile Include="Dto\IAssemblyInfo.cs" />
-    <Compile Include="Dto\IPosPackage.cs" />
-    <Compile Include="Dto\IPosRequest.cs" />
-    <Compile Include="Dto\PosPackage.cs" />
-    <Compile Include="Dto\PosRequest.cs" />
+    <Compile Include="Dto\FilePackage.cs" />
+    <Compile Include="Dto\FileRequest.cs" />
+    <Compile Include="Dto\LspPackage.cs" />
+    <Compile Include="Dto\LspRequest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

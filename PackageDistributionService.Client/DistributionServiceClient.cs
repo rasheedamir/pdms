@@ -26,7 +26,7 @@ namespace PackageDistributionService.Client
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        private PosPackage GetPackage(PosRequest request)
+        private LspPackage GetPackage(LspRequest request)
         {
             return _client.GetPackage(request);
         }
@@ -36,7 +36,7 @@ namespace PackageDistributionService.Client
             try
             {
                 var client = new DistributionServiceClient();
-                var request = new PosRequest
+                var request = new LspRequest
                     {
                         CoopStoreId = 111,
                         HostName = "Host A",

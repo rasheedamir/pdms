@@ -8,7 +8,7 @@ using PackageDistributionService.Core.Domain;
 
 namespace PackageDistributionService.Tests.DaoIntegrationTests
 {
-    public class PosCallLogDaoIntegrationTests : CrudTest<IPosCallLog, int>
+    public class PosCallLogDaoIntegrationTests : CrudTest<PosCallLog, int>
     {
         private static readonly ILog Log = LogManager.GetLogger(typeof(PosCallLogDaoIntegrationTests));
 
@@ -42,7 +42,7 @@ namespace PackageDistributionService.Tests.DaoIntegrationTests
             var criterion = new List<ICriterion>
                 {
                     Restrictions.Eq("Id", insertedEntity.Id),
-                    Restrictions.Eq("CallTimestamp", insertedEntity.CallTimestamp),
+                    Restrictions.Eq("DateCreated", insertedEntity.DateCreated),
                     Restrictions.Eq("CoopStoreId", insertedEntity.CoopStoreId),
                     Restrictions.Eq("HostName", insertedEntity.HostName),
                     Restrictions.Eq("IpAddress", insertedEntity.IpAddress),
@@ -87,7 +87,7 @@ namespace PackageDistributionService.Tests.DaoIntegrationTests
         /// 
         /// </summary>
         /// <returns></returns>
-        protected override IPosCallLog BuildEntity()
+        protected override PosCallLog BuildEntity()
         {
             return EntityBuilder.BuildPosCallLog(Session);
         }
@@ -96,9 +96,9 @@ namespace PackageDistributionService.Tests.DaoIntegrationTests
         /// 
         /// </summary>
         /// <param name="entity"></param>
-        protected override void ModifyEntity(IPosCallLog entity)
+        protected override void ModifyEntity(PosCallLog entity)
         {
-            entity.CallTimestamp = DateTime.Now;
+            entity.DateCreated = DateTime.Now;
             entity.CoopStoreId = 23;
             entity.HostName = "My name was changed to second host";
             entity.IpAddress = "145.3.4.7";
@@ -115,7 +115,7 @@ namespace PackageDistributionService.Tests.DaoIntegrationTests
         /// </summary>
         /// <param name="expectedEntity"></param>
         /// <param name="actualEntity"></param>
-        protected override void AssertAreEqual(IPosCallLog expectedEntity, IPosCallLog actualEntity)
+        protected override void AssertAreEqual(PosCallLog expectedEntity, PosCallLog actualEntity)
         {
             Assert.AreEqual(expectedEntity.Id, actualEntity.Id);
             //Assert.AreEqual(expectedEntity.CallTimestamp, actualEntity.CallTimestamp);
@@ -135,7 +135,7 @@ namespace PackageDistributionService.Tests.DaoIntegrationTests
         /// 
         /// </summary>
         /// <param name="entity"></param>
-        protected override void AssertValidId(IPosCallLog entity)
+        protected override void AssertValidId(PosCallLog entity)
         {
             Assert.AreEqual(entity.Id > 0, true);
         }

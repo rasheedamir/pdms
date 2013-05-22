@@ -7,7 +7,7 @@ namespace PackageDistributionService.Tests.DaoIntegrationTests
     public abstract class NHibernateTest : AbstractDaoIntegrationTests
     {
         private IActiveSessionManager _activeSessionManager;
-        private UnitOfWork _unitOfWork;
+        //private UnitOfWork _unitOfWork;
         protected ISession Session;
 
         /// <summary>
@@ -32,9 +32,9 @@ namespace PackageDistributionService.Tests.DaoIntegrationTests
         {
             BeforeSetup();
             var sessionManager = GetActiveSessionManager();
-            _unitOfWork = new UnitOfWork(sessionManager);
+//            _unitOfWork = new UnitOfWork(sessionManager);
             Session = sessionManager.GetActiveSession();
-            _unitOfWork.CreateTransaction();
+//            _unitOfWork.CreateTransaction();
             AfterSetup();
         }
 
@@ -42,11 +42,11 @@ namespace PackageDistributionService.Tests.DaoIntegrationTests
         public new void TearDown()
         {
             BeforeTearDown();
-            if (_unitOfWork != null)
-            {
-                _unitOfWork.Dispose();
-            }
-            _unitOfWork = null;
+//            if (_unitOfWork != null)
+//            {
+//                _unitOfWork.Dispose();
+//            }
+//            _unitOfWork = null;
             AfterTearDown();
         }
 

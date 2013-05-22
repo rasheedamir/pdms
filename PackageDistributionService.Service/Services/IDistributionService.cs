@@ -4,7 +4,7 @@ using PackageDistributionService.Core.Dto;
 namespace PackageDistributionService.Service.Services
 {
     /// <summary>
-    /// Package distribution service
+    /// Distribution service
     /// </summary>
     [ServiceContract]
     public interface IDistributionService
@@ -15,6 +15,15 @@ namespace PackageDistributionService.Service.Services
         /// <param name="request"></param>
         /// <returns></returns>
         [OperationContract]
-        PosPackage GetPackage(PosRequest request);
+        LspPackage GetPackage(LspRequest request);
+
+        /// <summary>
+        /// Get file function.
+        /// Returns a file matching the fileName in the request
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        [OperationContract]
+        FilePackage GetFile(FileRequest request);
     }
 }

@@ -1,5 +1,4 @@
 ﻿using ProjectBase.Data.Domain;
-using System;
 using System.Collections.Generic;
 
 namespace PackageDistributionService.Core.Domain
@@ -7,14 +6,14 @@ namespace PackageDistributionService.Core.Domain
     /// <summary>
     /// Group entity
     /// </summary>
-    public class Group : Entity, IGroup
+    public class Group : Entity
     {
         #region Constructors
 
         public Group()
         {
-            _packageGroups = new List<IPackageGroup>();
-            _groupStores = new List<IGroupStore>();
+            _packageGroups = new List<PackageGroup>();
+            _groupStores = new List<GroupStore>();
         }
 
         #endregion
@@ -22,9 +21,8 @@ namespace PackageDistributionService.Core.Domain
         #region Members
 
         private string _name;
-        private DateTime? _creationTimestamp;
-        private IList<IGroupStore> _groupStores;
-        private IList<IPackageGroup> _packageGroups;
+        private IList<GroupStore> _groupStores;
+        private IList<PackageGroup> _packageGroups;
 
         #endregion
 
@@ -50,18 +48,9 @@ namespace PackageDistributionService.Core.Domain
         }
 
         /// <summary>
-        /// time when this group was created
-        /// </summary>
-        public DateTime? CreationTimestamp
-        {
-            get { return _creationTimestamp; }
-            set { _creationTimestamp = value; }
-        }
-
-        /// <summary>
         /// list of stores that belongs to this group
         /// </summary>
-        public IList<IGroupStore> GroupStores
+        public IList<GroupStore> GroupStores
         {
             get { return _groupStores; }
             set { _groupStores = value; }
@@ -70,7 +59,7 @@ namespace PackageDistributionService.Core.Domain
         /// <summary>
         /// list of packages that have been deployed to this group
         /// </summary>
-        public IList<IPackageGroup> PackageGroups
+        public IList<PackageGroup> PackageGroups
         {
             get { return _packageGroups; }
             set { _packageGroups = value; }

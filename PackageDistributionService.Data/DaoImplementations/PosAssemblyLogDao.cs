@@ -9,7 +9,7 @@ namespace PackageDistributionService.Data.DaoImplementations
     /// Concrete DAO for accessing instances of <see cref="PosAssemblyLog" /> from DB.
     /// </summary>
     [Repository]
-    public class PosAssemblyLogDao : AbstractNHibernateDao<IPosAssemblyLog, int>, IPosAssemblyLogDao
+    public class PosAssemblyLogDao : AbstractNHibernateDao<PosAssemblyLog, int>, IPosAssemblyLogDao
     {
     }
 }

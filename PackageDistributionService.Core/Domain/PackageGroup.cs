@@ -3,15 +3,15 @@ using ProjectBase.Data.Domain;
 
 namespace PackageDistributionService.Core.Domain
 {
-    public class PackageGroup : Entity, IPackageGroup
+    public class PackageGroup : Entity
     {
         #region Constructors
         #endregion
 
         #region Members
 
-        private IPackageVersion _packageVersion;
-        private IGroup _group;
+        private PackageVersion _packageVersion;
+        private Group _group;
         private int _packageVersionId;
         private int _groupId;
         private DateTime? _activationTimestamp;
@@ -33,7 +33,7 @@ namespace PackageDistributionService.Core.Domain
         /// <summary>
         /// package_version entity
         /// </summary>
-        public IPackageVersion PackageVersion
+        public PackageVersion PackageVersion
         {
             get { return _packageVersion; }
             set { _packageVersion = value; }
@@ -42,7 +42,7 @@ namespace PackageDistributionService.Core.Domain
         /// <summary>
         /// group entity
         /// </summary>
-        public IGroup Group
+        public Group Group
         {
             get { return _group; }
             set { _group = value; }

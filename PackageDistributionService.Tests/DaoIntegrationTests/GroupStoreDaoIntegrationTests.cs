@@ -11,7 +11,7 @@ namespace PackageDistributionService.Tests.DaoIntegrationTests
     /// This class contains tests for GroupStoreDao
     /// </summary>
     [TestFixture]
-    public class GroupStoreDaoIntegrationTests : CrudTest<IGroupStore, int>
+    public class GroupStoreDaoIntegrationTests : CrudTest<GroupStore, int>
     {
         private static readonly ILog Log = LogManager.GetLogger(typeof(GroupStoreDaoIntegrationTests));
 
@@ -83,7 +83,7 @@ namespace PackageDistributionService.Tests.DaoIntegrationTests
         /// 
         /// </summary>
         /// <returns></returns>
-        protected override IGroupStore BuildEntity()
+        protected override GroupStore BuildEntity()
         {
             return EntityBuilder.BuildGroupStore(Session);
         }
@@ -92,7 +92,7 @@ namespace PackageDistributionService.Tests.DaoIntegrationTests
         /// 
         /// </summary>
         /// <param name="entity"></param>
-        protected override void ModifyEntity(IGroupStore entity)
+        protected override void ModifyEntity(GroupStore entity)
         {
             entity.CoopStoreId = 11;
         }
@@ -102,7 +102,7 @@ namespace PackageDistributionService.Tests.DaoIntegrationTests
         /// </summary>
         /// <param name="expectedEntity"></param>
         /// <param name="actualEntity"></param>
-        protected override void AssertAreEqual(IGroupStore expectedEntity, IGroupStore actualEntity)
+        protected override void AssertAreEqual(GroupStore expectedEntity, GroupStore actualEntity)
         {
             Assert.AreEqual(expectedEntity.Id, actualEntity.Id);
             Assert.AreEqual(expectedEntity.CoopStoreId, actualEntity.CoopStoreId);
@@ -115,7 +115,7 @@ namespace PackageDistributionService.Tests.DaoIntegrationTests
         /// 
         /// </summary>
         /// <param name="entity"></param>
-        protected override void AssertValidId(IGroupStore entity)
+        protected override void AssertValidId(GroupStore entity)
         {
             Assert.AreEqual(entity.Id > 0, true);
         }

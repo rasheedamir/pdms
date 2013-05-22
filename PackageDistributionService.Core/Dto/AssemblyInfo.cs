@@ -6,7 +6,7 @@ namespace PackageDistributionService.Core.Dto
     /// Pos assembly information
     /// </summary>
     [DataContract]
-    public class AssemblyInfo : BaseDto, IAssemblyInfo
+    public class AssemblyInfo : BaseDto
     {
         #region Constructors
         #endregion

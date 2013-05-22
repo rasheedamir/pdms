@@ -19,7 +19,7 @@ namespace PackageDistributionService.Service.Services
     public class DistributionService : IDistributionService
     {
         private static readonly MD5 Md5 = MD5.Create();
-        private static readonly ILog Log = LogManager.GetLogger(typeof(DistributionService));
+        private static readonly ILog Logger = LogManager.GetLogger(typeof(DistributionService));
         private IPosCallLogDao _posCallLogDao;
         private IPosAssemblyLogDao _posAssemblyLogDao;
         private IPackageVersionDao _packageVersionDao;
@@ -75,38 +75,38 @@ namespace PackageDistributionService.Service.Services
         /// </returns>
         [PerformanceMonitoring]
         [Transaction(TransactionPropagation.Required, ReadOnly = false)]
-        public PosPackage GetPackage(PosRequest request)
+        public LspPackage GetPackage(LspRequest request)
         {
-            var posPackage = new PosPackage();
+            var lspPackage = new LspPackage();
 
             try
             {
                 // Step : Log the information in file
-                Log.Info(String.Format("Request recieved for {0}: {1}", request.CoopStoreId, request));
+                Logger.Info(String.Format("Processing LspPackage request for PosNumber:{0}: StoreId:{1} || Request recieved :{2}", request.PosNumber, request.CoopStoreId, request));
 
                 // Step : Insert data into poscalllog and posassemblylog tables in database
                 InsertPosCallLog(request);
 
                 // Step : Lookup if there is a new package version in the database (packageversions) - packageversion
                 var packageVersion = LookupLatestPackageVersion(request.PackageVersionId);
-                Log.Info(String.Format("Current package of store {0} is {1} and the latest package is {2}: ", request.CoopStoreId, request.PackageVersionId, packageVersion));
+                Logger.Debug(String.Format("Processing LspPackage request for PosNumber:{0}: StoreId:{1} || Installed package :{2} and the Latest available package is :{3} ", request.PosNumber, request.CoopStoreId, request.PackageVersionId, packageVersion));
                 if (packageVersion == null)
                 {
-                    posPackage.Status = 0; // Nothing new.
-                    posPackage.Message = "No new package available.";
+                    lspPackage.Status = 0; // Nothing new.
+                    lspPackage.Message = "No new package available.";
                     // Nothing else simply return!
-                    Log.Info(String.Format("Response sent for {0}: {1}", request.CoopStoreId, posPackage.Message));
-                    return posPackage;
+                    Logger.Info(String.Format("Processing LspPackage request for PosNumber:{0}: StoreId:{1} || Response sent :{2}", request.PosNumber, request.CoopStoreId, lspPackage.Message));
+                    return lspPackage;
                 }
                 // Step : Lookup to which groups this package can be deployed (packagegroups) - groups list
                 var packageGroupsList = LookupPackageGroupsByPackageVersionId(packageVersion.Id);
-                Log.Info(String.Format("PackageGroupsList.Count: {0} for PackagVersion.Id: {1}", packageGroupsList.Count, packageVersion.Id));
+                Logger.Info(String.Format("Processing LspPackage request for PosNumber:{0}: StoreId:{1} || PackageGroupsList.Count :{2} for PackagVersion.Id :{3}", request.PosNumber, request.CoopStoreId, packageGroupsList.Count, packageVersion.Id));
 
                 if (packageGroupsList.Count > 0)
                 {
                     // Step : Lookup if coopstoreid belongs to any of the groups                    
                     var groupStoresList = LookupGroupStoresByStoreId(request.CoopStoreId);
-                    Log.Info(String.Format("GroupStoresList.Count: {0} for  CoopStoreId: {1}", groupStoresList.Count, request.CoopStoreId));
+                    Logger.Debug(String.Format("Processing LspPackage request for PosNumber:{0}: StoreId:{1} || GroupStoresList.Count :{2}", request.PosNumber, request.CoopStoreId, groupStoresList.Count));
 
                     if (groupStoresList.Count > 0)
                     {
@@ -118,44 +118,45 @@ namespace PackageDistributionService.Service.Services
                                 where g.GroupId == gs.GroupId
                                 select g;
 
-                            var packageGroups = packageGroup as IPackageGroup[] ?? packageGroup.ToArray();
+                            var packageGroups = packageGroup as PackageGroup[] ?? packageGroup.ToArray();
                             if (packageGroups.FirstOrDefault() == null) continue;
                                 
-                            posPackage.Status = 1; // Something new.
-                            posPackage.Message = "New package attached.";
-                            posPackage.ActivationTime = packageGroups.First().ActivationTimestamp; // Activation timestamp
-                            posPackage.PackageVersionId = packageVersion.Id; // Package verison id
-                            posPackage.Filename = packageVersion.PackageName;
-                            posPackage.PackageContents = File.ReadAllBytes(packageVersion.PackagePath);
-                            posPackage.Md5CheckSum = CalculateChecksum(packageVersion.PackagePath);
-                            Log.Info(String.Format("Response sent for {0}: {1}", request.CoopStoreId, posPackage.ToStringMini()));
-                            return posPackage;
+                            lspPackage.Status = 1; // Something new.
+                            lspPackage.Message = "New package attached.";
+                            lspPackage.ActivationTime = packageGroups.First().ActivationTimestamp; // Activation timestamp
+                            lspPackage.PackageVersionId = packageVersion.Id; // Package verison id
+                            lspPackage.Filename = packageVersion.PackageName;
+                            lspPackage.PackageContents = File.ReadAllBytes(packageVersion.PackagePath);
+                            lspPackage.Md5CheckSum = CalculateChecksum(packageVersion.PackagePath);
+                            Logger.Info(String.Format("Processing LspPackage request for PosNumber:{0}: StoreId:{1} || Response sent :{2}", request.PosNumber, request.CoopStoreId, lspPackage.ToStringMini()));
+                            return lspPackage;
                         }
-                        posPackage.Status = 0; // Nothing new.
-                        posPackage.Message = "New package available but it hasn't been assigned to any group containing this store.";
+                        lspPackage.Status = 0; // Nothing new.
+                        lspPackage.Message = "New package available but it hasn't been assigned to any group containing this store.";
                         // Nothing else simply return!
-                        Log.Info(String.Format("Response sent for {0}: {1}", request.CoopStoreId, posPackage.Message));
-                        return posPackage;                                                    
+                        Logger.Info(String.Format("Processing LspPackage request for PosNumber:{0}: StoreId:{1} || Response sent :{2}", request.PosNumber, request.CoopStoreId, lspPackage.Message));
+                        return lspPackage;                                                    
                     }
-                    posPackage.Status = 0; // Nothing new.
-                    posPackage.Message = "New package available but store hasn't been assigned to any group.";
+                    lspPackage.Status = 0; // Nothing new.
+                    lspPackage.Message = "New package available but store hasn't been assigned to any group.";
                     // Nothing else simply return!
-                    Log.Info(String.Format("Response sent for {0}: {1}", request.CoopStoreId, posPackage.Message));
-                    return posPackage;
+                    Logger.Info(String.Format("Processing LspPackage request for PosNumber:{0}: StoreId:{1} || Response sent :{2}", request.PosNumber, request.CoopStoreId, lspPackage.Message));
+                    return lspPackage;
                 }
-                posPackage.Status = 0; // Nothing new.
-                posPackage.Message = "New package available but package hasn't been assigned to any group.";
+                lspPackage.Status = 0; // Nothing new.
+                lspPackage.Message = "New package available but package hasn't been assigned to any group.";
                 // Nothing else simply return!
-                Log.Info(String.Format("Response sent for {0}: {1}", request.CoopStoreId, posPackage.Message));
-                return posPackage;
+                Logger.Info(String.Format("Processing LspPackage request for PosNumber:{0}: StoreId:{1} || Response sent :{2}", request.PosNumber, request.CoopStoreId, lspPackage.Message));
+                return lspPackage;
             }
             catch (Exception exception)
             {
-                Log.Error(exception.Message);
-                Log.Error(exception.StackTrace);
-                posPackage.Status = 2; // Exception! Anything went wrong. Contact system admin.
-                posPackage.Message = "Exception occured. Please contact admininstrator!";
-                return posPackage;                                                   
+                Logger.Error(String.Format("Processing LspPackage request for PosNumber:{0}: StoreId:{1} || Exception :{2}", request.PosNumber, request.CoopStoreId, exception.Message));
+                Logger.Error(String.Format("Processing LspPackage request for PosNumber:{0}: StoreId:{1} || Exception :{2}", request.PosNumber, request.CoopStoreId, exception.StackTrace));
+                lspPackage.Status = 2; // Exception! Anything went wrong. Contact system admin.
+                lspPackage.Message = "Exception occured. Please contact admininstrator!";
+                Logger.Info(String.Format("Processing LspPackage request for PosNumber:{0}: StoreId:{1} || Response sent :{2}", request.PosNumber, request.CoopStoreId, lspPackage.Message));
+                return lspPackage;                                                   
             }
         }
 
@@ -163,18 +164,20 @@ namespace PackageDistributionService.Service.Services
         /// Inserts point of sales call data into database
         /// </summary>
         /// <param name="request"></param>
-        private void InsertPosCallLog(PosRequest request)
+        private void InsertPosCallLog(LspRequest request)
         {
-            IPosCallLog posCallLog = new PosCallLog();
-            posCallLog.CallTimestamp = DateTime.Now;
-            posCallLog.CoopStoreId = request.CoopStoreId;
-            posCallLog.HostName = request.HostName;
-            posCallLog.IpAddress = request.IpAddress;
-            posCallLog.PackageVersionId = request.PackageVersionId;
-            posCallLog.PosManufacturerName = request.PosManufacturerName;
-            posCallLog.PosNumber = request.PosNumber;
-            posCallLog.PosVersion = request.PosVersion;
-            posCallLog.TerminalSerialNumber = request.TerminalSerialNumber;
+            var posCallLog = new PosCallLog
+                {
+                    DateCreated = DateTime.Now,
+                    CoopStoreId = request.CoopStoreId,
+                    HostName = request.HostName,
+                    IpAddress = request.IpAddress,
+                    PackageVersionId = request.PackageVersionId,
+                    PosManufacturerName = request.PosManufacturerName,
+                    PosNumber = request.PosNumber,
+                    PosVersion = request.PosVersion,
+                    TerminalSerialNumber = request.TerminalSerialNumber
+                };
             var posCallLogId = _posCallLogDao.Save(posCallLog);
 
             if (posCallLog.PosAssemblyLogs != null)
@@ -191,9 +194,9 @@ namespace PackageDistributionService.Service.Services
         /// </summary>
         /// <param name="currentPackageVerionId">current package version id</param>
         /// <returns>package if available; otherwise null</returns>
-        private IPackageVersion LookupLatestPackageVersion(int currentPackageVerionId)
+        private PackageVersion LookupLatestPackageVersion(int currentPackageVerionId)
         {
-            Log.Debug(String.Format(" CurrentPackageVerionId: {0}", currentPackageVerionId));
+            Logger.Debug(String.Format(" CurrentPackageVerionId: {0}", currentPackageVerionId));
             var latestPackageVersion = _packageVersionDao.GetLatestPackageVersion();
             return latestPackageVersion.Id > currentPackageVerionId ? latestPackageVersion : null;
         }
@@ -203,7 +206,7 @@ namespace PackageDistributionService.Service.Services
         /// </summary>
         /// <param name="packageVersionId">Package version id</param>
         /// <returns>List of groups</returns>
-        private IList<IPackageGroup> LookupPackageGroupsByPackageVersionId(int packageVersionId)
+        private IList<PackageGroup> LookupPackageGroupsByPackageVersionId(int packageVersionId)
         {
             return _packageGroupDao.GetAllByPackageVersionId(packageVersionId);
         }
@@ -213,9 +216,9 @@ namespace PackageDistributionService.Service.Services
         /// </summary>
         /// <param name="coopStoreId"></param>
         /// <returns></returns>
-        private IList<IGroupStore> LookupGroupStoresByStoreId(int coopStoreId)
+        private IList<GroupStore> LookupGroupStoresByStoreId(int coopStoreId)
         {
-            Log.Debug(String.Format(" CoopStoreId: {0}", coopStoreId));
+            Logger.Debug(String.Format(" CoopStoreId: {0}", coopStoreId));
             return _groupStoreDao.GetAllByCoopStoreId(coopStoreId);
         }
 
@@ -232,5 +235,37 @@ namespace PackageDistributionService.Service.Services
                 return (BitConverter.ToString(checksum).Replace("-", string.Empty));
             } // End of using fileStream
         } // End of CalculateChecksum 
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public FilePackage GetFile(FileRequest request)
+        {
+            var filePackage = new FilePackage();
+            //ToDo: Read from a property file...
+            const string filePath = "C:\\LSP\\Files";
+            try
+            {
+                Logger.Info(String.Format("Processing FilePackage request for PosNumber:{0}: StoreId:{1} || Request recieved :{2}", request.PosNumber, request.CoopStoreId, request));
+                var completeFilePathAndName = filePath + "\\" + request.Filename;
+                filePackage.FileContents = File.ReadAllBytes(completeFilePathAndName);
+                filePackage.Md5CheckSum = CalculateChecksum(completeFilePathAndName);
+                filePackage.Status = 1; // All went well! File is attached!
+                filePackage.Message = "All went well! File is attached!";
+                Logger.Info(String.Format("Processing FilePackage request for PosNumber:{0}: StoreId:{1} || Response sent :{2}", request.PosNumber, request.CoopStoreId, filePackage.Message));
+                return filePackage;
+            }
+            catch (Exception exception)
+            {
+                Logger.Error(String.Format("Processing FilePackage request for PosNumber:{0}: StoreId:{1} || Exception :{2}", request.PosNumber, request.CoopStoreId, exception.Message));
+                Logger.Error(String.Format("Processing FilePackage request for PosNumber:{0}: StoreId:{1} || Exception :{2}", request.PosNumber, request.CoopStoreId, exception.StackTrace));
+                filePackage.Status = 0; // Exception occured. Please contact admininstrator!
+                filePackage.Message = "Exception occured. Please contact admininstrator!";
+                Logger.Info(String.Format("Processing FilePackage request for PosNumber:{0}: StoreId:{1} || Response sent :{2}", request.PosNumber, request.CoopStoreId, filePackage.Message));
+                return filePackage;
+            }
+        }
     }
 }

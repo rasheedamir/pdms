@@ -15,7 +15,7 @@ namespace PackageDistributionService.Tests.DaoIntegrationTests
             return new PackageVersion
             {
                 Comment = "Brand New Package",
-                CreationTimestamp = DateTime.Now,
+                DateCreated = DateTime.Now,
                 PackagePath = "C:\\Package\\ABC.zip",
                 VersionNumber = "1.0.0.1"
             };
@@ -43,7 +43,7 @@ namespace PackageDistributionService.Tests.DaoIntegrationTests
         {
             var group = new Group();
             group.Name = "New Group";
-            group.CreationTimestamp = DateTime.Now;
+            group.DateCreated = DateTime.Now;
             return group;
         }
 
@@ -70,7 +70,7 @@ namespace PackageDistributionService.Tests.DaoIntegrationTests
         {
             var posCallLog = new PosCallLog
             {
-                CallTimestamp = DateTime.Now,
+                DateCreated = DateTime.Now,
                 CoopStoreId = 22,
                 HostName = "I am the first host!",
                 IpAddress = "123.3.4.5",

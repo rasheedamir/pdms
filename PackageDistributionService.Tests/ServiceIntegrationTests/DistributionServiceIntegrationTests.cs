@@ -21,18 +21,18 @@ namespace PackageDistributionService.Tests.ServiceIntegrationTests
 
         //ToDo: Define test data as static
 
-        private static readonly IGroup[] Groups = new IGroup[] 
-                                {new Group{CreationTimestamp = DateTime.Now, Name = "Group 1"},
-                               new Group{CreationTimestamp = DateTime.Now.AddMinutes(-10), Name = "Group 2"}};
+        private static readonly Group[] Groups = new Group[] 
+                                {new Group{DateCreated = DateTime.Now, Name = "Group 1"},
+                               new Group{DateCreated = DateTime.Now.AddMinutes(-10), Name = "Group 2"}};
 
-        private static readonly IPackageVersion[] PackageVersions = new IPackageVersion[] 
-                                {new PackageVersion {Comment = "This is package 1", VersionNumber = "1.0", CreationTimestamp = DateTime.Now, PackagePath = "C:\\PDS\\packages\\packae_1.0.7z"},
-                                new PackageVersion {Comment = "This is package 2", VersionNumber = "2.0", CreationTimestamp = DateTime.Now, PackagePath = "C:\\PDS\\packages\\packae_1.0.7z"}};
+        private static readonly PackageVersion[] PackageVersions = new PackageVersion[] 
+                                {new PackageVersion {Comment = "This is package 1", VersionNumber = "1.0", DateCreated = DateTime.Now, PackagePath = "C:\\PDS\\packages\\packae_1.0.7z"},
+                                new PackageVersion {Comment = "This is package 2", VersionNumber = "2.0", DateCreated = DateTime.Now, PackagePath = "C:\\PDS\\packages\\packae_1.0.7z"}};
 
-        private static readonly IPackageGroup[] PackageGroups = new IPackageGroup[] 
+        private static readonly PackageGroup[] PackageGroups = new PackageGroup[] 
                                 {new PackageGroup{ActivationTimestamp = DateTime.Now.AddMinutes(-10)}, new PackageGroup{ActivationTimestamp = DateTime.Now}};
 
-        private static readonly IGroupStore[] GroupStores = new IGroupStore[] 
+        private static readonly GroupStore[] GroupStores = new GroupStore[] 
                                 {new GroupStore{CoopStoreId = 1111}, new GroupStore{CoopStoreId = 2222} };
 
         //private static readonly ILog Log = LogManager.GetLogger(typeof(DistributionServiceIntegrationTests));
@@ -218,9 +218,9 @@ namespace PackageDistributionService.Tests.ServiceIntegrationTests
         /// Creates pos request message which can be reused in different methods.
         /// </summary>
         /// <returns></returns>
-        private static PosRequest CreatePosRequest(int coopStoreId, int packageVersionId)
+        private static LspRequest CreatePosRequest(int coopStoreId, int packageVersionId)
         {
-            var request = new PosRequest();
+            var request = new LspRequest();
             request.CoopStoreId = coopStoreId;
             request.HostName = "Host 1";
             request.IpAddress = "192.11.12.33";

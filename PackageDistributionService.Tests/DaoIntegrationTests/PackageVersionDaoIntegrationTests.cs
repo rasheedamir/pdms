@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Common.Logging;
 using NHibernate.Criterion;
 using NUnit.Framework;
@@ -11,7 +10,7 @@ namespace PackageDistributionService.Tests.DaoIntegrationTests
     /// <summary>
     /// Unit tests for PackageVersionDao for accessing instances of <see cref="PackageVersion" /> from DB.
     /// </summary>
-    public class PackageVersionDaoIntegrationTests : CrudTest<IPackageVersion, int>
+    public class PackageVersionDaoIntegrationTests : CrudTest<PackageVersion, int>
     {
         private static readonly ILog Log = LogManager.GetLogger(typeof(PackageVersionDaoIntegrationTests));
         private IPackageVersionDao _packageVersionDao;
@@ -61,7 +60,7 @@ namespace PackageDistributionService.Tests.DaoIntegrationTests
                     Restrictions.Eq("Id", insertedEntity.Id),
                     Restrictions.Eq("VersionNumber", insertedEntity.VersionNumber),
                     Restrictions.Eq("Comment", insertedEntity.Comment),
-                    Restrictions.Eq("CreationTimestamp", insertedEntity.CreationTimestamp),
+                    Restrictions.Eq("DateCreated", insertedEntity.DateCreated),
                     Restrictions.Eq("PackagePath", insertedEntity.PackagePath)
                 };
             var list = _packageVersionDao.GetByCriteria(criterion.ToArray());
@@ -99,7 +98,7 @@ namespace PackageDistributionService.Tests.DaoIntegrationTests
         /// Builds an entity
         /// </summary>
         /// <returns></returns>
-        protected override IPackageVersion BuildEntity()
+        protected override PackageVersion BuildEntity()
         {
             return EntityBuilder.BuildPackageVersion();
         }
@@ -108,7 +107,7 @@ namespace PackageDistributionService.Tests.DaoIntegrationTests
         /// Modifies attributes of an entity
         /// </summary>
         /// <param name="entity"></param>
-        protected override void ModifyEntity(IPackageVersion entity)
+        protected override void ModifyEntity(PackageVersion entity)
         {
             entity.Comment = "Brand New Package 2";
         }
@@ -117,7 +116,7 @@ namespace PackageDistributionService.Tests.DaoIntegrationTests
         /// Asserts if the Id (primary key) of entity is valid
         /// </summary>
         /// <param name="entity"></param>
-        protected override void AssertValidId(IPackageVersion entity)
+        protected override void AssertValidId(PackageVersion entity)
         {
             Assert.AreEqual(entity.Id > 0, true);
         }
@@ -127,7 +126,7 @@ namespace PackageDistributionService.Tests.DaoIntegrationTests
         /// </summary>
         /// <param name="expectedEntity"></param>
         /// <param name="actualEntity"></param>
-        protected override void AssertAreEqual(IPackageVersion expectedEntity, IPackageVersion actualEntity)
+        protected override void AssertAreEqual(PackageVersion expectedEntity, PackageVersion actualEntity)
         {
             Assert.AreEqual(expectedEntity.Id, actualEntity.Id);
             Assert.AreEqual(expectedEntity.Comment, actualEntity.Comment);

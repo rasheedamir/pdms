@@ -15,5 +15,25 @@ namespace ProjectBase.Data.Domain
     [Serializable]
     public abstract class Entity : EntityWithTypedId<int>
     {
+        private int _version;
+        private DateTime _dateCreated;
+
+        /// <summary>
+        /// Version
+        /// </summary>
+        public int Version
+        {
+            get { return _version; }
+            set { _version = value; }
+        }
+
+        /// <summary>
+        /// Date Created
+        /// </summary>
+        public DateTime DateCreated
+        {
+            get { return _dateCreated; }
+            set { _dateCreated = value; }
+        }
     }
 }

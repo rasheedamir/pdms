@@ -6,7 +6,7 @@ namespace PackageDistributionService.Core.DataInterfaces
     /// <summary>
     /// PosCallLog related DAO operations interface
     /// </summary>
-    public interface IPosCallLogDao : IDao<IPosCallLog, int>, ISupportsSaveDao<IPosCallLog, int>, ISupportsCriteriaDao<IPosCallLog>, ISupportsDeleteDao<IPosCallLog>
+    public interface IPosCallLogDao : IDao<PosCallLog, int>, ISupportsSaveDao<PosCallLog, int>, ISupportsCriteriaDao<PosCallLog>, ISupportsDeleteDao<PosCallLog>
     {
     }
 }

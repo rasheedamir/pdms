@@ -12,7 +12,7 @@ namespace PackageDistributionService.Tests.DaoIntegrationTests
     /// This class contains tests for GroupDao
     /// </summary>
     [TestFixture]
-    public class GroupDaoIntegrationTests : CrudTest<IGroup, int>
+    public class GroupDaoIntegrationTests : CrudTest<Group, int>
     {
         private static readonly ILog Log = LogManager.GetLogger(typeof(GroupDaoIntegrationTests));
         private IGroupDao _groupDao;
@@ -57,7 +57,7 @@ namespace PackageDistributionService.Tests.DaoIntegrationTests
                 {
                     Restrictions.Eq("Id", insertedEntity.Id),
                     Restrictions.Eq("Name", insertedEntity.Name),
-                    Restrictions.Eq("CreationTimestamp", insertedEntity.CreationTimestamp),
+                    Restrictions.Eq("DateCreated", insertedEntity.DateCreated),
                 };
             var list = _groupDao.GetByCriteria(criterion.ToArray());
             Log.Debug("Retrieved Entity : " + list[0]);
@@ -94,7 +94,7 @@ namespace PackageDistributionService.Tests.DaoIntegrationTests
         /// 
         /// </summary>
         /// <returns></returns>
-        protected override IGroup BuildEntity()
+        protected override Group BuildEntity()
         {
             return EntityBuilder.BuildGroup();
         }
@@ -103,10 +103,10 @@ namespace PackageDistributionService.Tests.DaoIntegrationTests
         /// 
         /// </summary>
         /// <param name="entity"></param>
-        protected override void ModifyEntity(IGroup entity)
+        protected override void ModifyEntity(Group entity)
         {
             entity.Name = "Updated New Group";
-            entity.CreationTimestamp = DateTime.Now;
+            entity.DateCreated = DateTime.Now;
         }
 
         /// <summary>
@@ -114,7 +114,7 @@ namespace PackageDistributionService.Tests.DaoIntegrationTests
         /// </summary>
         /// <param name="expectedEntity"></param>
         /// <param name="actualEntity"></param>
-        protected override void AssertAreEqual(IGroup expectedEntity, IGroup actualEntity)
+        protected override void AssertAreEqual(Group expectedEntity, Group actualEntity)
         {
             Assert.AreEqual(expectedEntity.Id, actualEntity.Id);
             Assert.AreEqual(expectedEntity.Name, actualEntity.Name);
@@ -127,7 +127,7 @@ namespace PackageDistributionService.Tests.DaoIntegrationTests
         /// 
         /// </summary>
         /// <param name="entity"></param>
-        protected override void AssertValidId(IGroup entity)
+        protected override void AssertValidId(Group entity)
         {
             Assert.AreEqual(entity.Id>0, true);
         }

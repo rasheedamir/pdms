@@ -2,27 +2,37 @@
 
 <hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" assembly="PackageDistributionService.Core" namespace="PackageDistributionService.Core.Domain">
 
-  <class name="PosAssemblyLog" table="posassemblylogs" lazy="true" proxy="IPosAssemblyLog">
+  <class name="PosAssemblyLog" table="pos_assembly_log" lazy="true">
 
     <id name="Id">
       <generator class="identity" />
       <!-- column name="PosAssemblyLogId" sql-type="int(11)" not-null="true" /-->
     </id>
+
+    <!-- Version -->
+    <property name="Version">
+      <column name="version" sql-type="int" not-null="false" />
+    </property>
+
+    <!-- DateCreated -->
+    <property name="DateCreated">
+      <column name="date_created" sql-type="datetime" not-null="false" />
+    </property>
     
     <!-- many-to-one name="PosCallLog" class="PosCallLog" insert="false" update="false" lazy="false" >
       <column name="PosCallLogId" sql-type="int(11)" not-null="false" />
     </many-to-one -->
 
     <property name="PosCallLogId">
-      <column name="PosCallLogId" sql-type="int(11)" not-null="false" />
+      <column name="pos_call_log_id" sql-type="int(11)" not-null="false" />
     </property>
     
     <property name="AssemblyName">
-      <column name="AssemblyName" sql-type="varchar(100)" not-null="false" />
+      <column name="assembly_name" sql-type="varchar(255)" not-null="false" />
     </property>
     
     <property name="AssemblyVersion">
-      <column name="AssemblyVersion" sql-type="varchar(50)" not-null="false" />
+      <column name="assembly_version" sql-type="varchar(255)" not-null="false" />
     </property>
 
   </class>

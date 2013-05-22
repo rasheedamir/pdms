@@ -5,10 +5,9 @@ using System.Text;
 namespace PackageDistributionService.Core.Dto
 {
     /// <summary>
-    /// 
+    /// A DTO for LSP request.
     /// </summary>
-    [DataContract]
-    public class PosRequest : BaseDto //, IPosRequest
+    public class LspRequest : BaseDto
     {
         #region Constructors
         #endregion

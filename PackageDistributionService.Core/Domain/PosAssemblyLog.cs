@@ -5,14 +5,14 @@ namespace PackageDistributionService.Core.Domain
     /// <summary>
     /// PosAssemblyLog entity
     /// </summary>
-    public class PosAssemblyLog : Entity, IPosAssemblyLog
+    public class PosAssemblyLog : Entity
     {
         #region Constructors
         #endregion
 
         #region Members
 
-        private IPosCallLog _posCallLog;
+        private PosCallLog _posCallLog;
         private int _posCallLogId;
         private string _assemblyName;
         private string _assemblyVersion;
@@ -35,7 +35,7 @@ namespace PackageDistributionService.Core.Domain
         /// PosCallLog entity to which this PosAssemblyLog belongs
         /// 1(PosCallLog)-to-M(PosAssemblyLog)
         /// </summary>
-        public IPosCallLog PosCallLog
+        public PosCallLog PosCallLog
         {
             get { return _posCallLog; }
             set { _posCallLog = value; }

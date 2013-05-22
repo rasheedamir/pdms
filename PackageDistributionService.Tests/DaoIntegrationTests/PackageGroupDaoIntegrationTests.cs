@@ -12,7 +12,7 @@ namespace PackageDistributionService.Tests.DaoIntegrationTests
     /// This class contains tests for GroupDao
     /// </summary>
     [TestFixture]
-    public class PackageGroupDaoIntegrationTests : CrudTest<IPackageGroup, int>
+    public class PackageGroupDaoIntegrationTests : CrudTest<PackageGroup, int>
     {
         private static readonly ILog Log = LogManager.GetLogger(typeof(PackageGroupDaoIntegrationTests));
         private IPackageGroupDao _packageGroupDao;
@@ -84,7 +84,7 @@ namespace PackageDistributionService.Tests.DaoIntegrationTests
         /// 
         /// </summary>
         /// <returns></returns>
-        protected override IPackageGroup BuildEntity()
+        protected override PackageGroup BuildEntity()
         {
             return EntityBuilder.BuildPackageGroup(Session);
         }
@@ -93,7 +93,7 @@ namespace PackageDistributionService.Tests.DaoIntegrationTests
         /// 
         /// </summary>
         /// <param name="entity"></param>
-        protected override void ModifyEntity(IPackageGroup entity)
+        protected override void ModifyEntity(PackageGroup entity)
         {
             entity.ActivationTimestamp = DateTime.Now.AddDays(-1);
         }
@@ -103,7 +103,7 @@ namespace PackageDistributionService.Tests.DaoIntegrationTests
         /// </summary>
         /// <param name="expectedEntity"></param>
         /// <param name="actualEntity"></param>
-        protected override void AssertAreEqual(IPackageGroup expectedEntity, IPackageGroup actualEntity)
+        protected override void AssertAreEqual(PackageGroup expectedEntity, PackageGroup actualEntity)
         {
             Assert.AreEqual(expectedEntity.Id, actualEntity.Id);
             //Assert.AreEqual(expectedEntity.ActivationTimestamp, actualEntity.ActivationTimestamp);
@@ -117,7 +117,7 @@ namespace PackageDistributionService.Tests.DaoIntegrationTests
         /// 
         /// </summary>
         /// <param name="entity"></param>
-        protected override void AssertValidId(IPackageGroup entity)
+        protected override void AssertValidId(PackageGroup entity)
         {
             Assert.AreEqual(entity.Id > 0, true);
         }

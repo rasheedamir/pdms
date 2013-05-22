@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using ProjectBase.Data.Domain;
 
 namespace PackageDistributionService.Core.Domain
@@ -7,13 +6,13 @@ namespace PackageDistributionService.Core.Domain
     /// <summary>
     /// PosCallLog
     /// </summary>
-    public class PosCallLog : Entity, IPosCallLog
+    public class PosCallLog : Entity
     {
         #region Constructors
 
         public PosCallLog()
         {
-            _posAssemblyLogs = new List<IPosAssemblyLog>();
+            _posAssemblyLogs = new List<PosAssemblyLog>();
         }
 
         #endregion
@@ -22,15 +21,14 @@ namespace PackageDistributionService.Core.Domain
 
         private int _coopStoreId;
         private string _posNumber;
-        private DateTime? _callTimestamp;
-        private IPackageVersion _packageVersion;
+        private PackageVersion _packageVersion;
         private int _packageVersionId;
         private string _terminalSerialNumber;
         private string _ipAddress;
         private string _hostName;
         private string _posManufactureName;
         private string _posVersion;
-        private IList<IPosAssemblyLog> _posAssemblyLogs;
+        private IList<PosAssemblyLog> _posAssemblyLogs;
 
         #endregion
 
@@ -65,18 +63,9 @@ namespace PackageDistributionService.Core.Domain
         }
 
         /// <summary>
-        /// the time when system recieved the call from pos
-        /// </summary>
-        public DateTime? CallTimestamp
-        {
-            get { return _callTimestamp; }
-            set { _callTimestamp = value; }
-        }
-
-        /// <summary>
         /// PackageVersion entity
         /// </summary>
-        public IPackageVersion PackageVersion
+        public PackageVersion PackageVersion
         {
             get { return _packageVersion; }
             set { _packageVersion = value; }
@@ -139,7 +128,7 @@ namespace PackageDistributionService.Core.Domain
         /// <summary>
         /// list of assemblies
         /// </summary>
-        public IList<IPosAssemblyLog> PosAssemblyLogs
+        public IList<PosAssemblyLog> PosAssemblyLogs
         {
             get { return _posAssemblyLogs; }
             set { _posAssemblyLogs = value; }

@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Runtime.Serialization;
 
 namespace PackageDistributionService.Core.Dto
 {
-    public class PosPackage : BaseDto //, IPosPackage
+    public class LspPackage : BaseDto
     {
         #region Constructors
         #endregion
@@ -52,6 +51,9 @@ namespace PackageDistributionService.Core.Dto
             set { _packageContents = value; }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public int Status
         {
             get { return _status; }

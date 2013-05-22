@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using ProjectBase.Data.Domain;
 
 namespace PackageDistributionService.Core.Domain
@@ -7,7 +6,7 @@ namespace PackageDistributionService.Core.Domain
     /// <summary>
     /// PackageVersion entity
     /// </summary>
-    public class PackageVersion : Entity, IPackageVersion
+    public class PackageVersion : Entity
     {
         #region Constructors
 
@@ -16,8 +15,8 @@ namespace PackageDistributionService.Core.Domain
         /// </summary>
         public PackageVersion()
         {
-            _packageGroups = new List<IPackageGroup>();
-            _posCallLogs = new List<IPosCallLog>();
+            _packageGroups = new List<PackageGroup>();
+            _posCallLogs = new List<PosCallLog>();
         }
 
         #endregion
@@ -27,9 +26,8 @@ namespace PackageDistributionService.Core.Domain
         private string _versionNumber;
         private string _packagePath;
         private string _comment;
-        private DateTime? _creationTimestamp;
-        private IList<IPackageGroup> _packageGroups;
-        private IList<IPosCallLog> _posCallLogs;
+        private IList<PackageGroup> _packageGroups;
+        private IList<PosCallLog> _posCallLogs;
         private string _packageName;
 
         #endregion
@@ -80,18 +78,9 @@ namespace PackageDistributionService.Core.Domain
         }
 
         /// <summary>
-        /// time when package was loaded into the system
-        /// </summary>
-        public DateTime? CreationTimestamp
-        {
-            get { return _creationTimestamp; }
-            set { _creationTimestamp = value; }
-        }
-
-        /// <summary>
         /// list of groups to which this package is going to be deployed
         /// </summary>
-        public IList<IPackageGroup> PackageGroups
+        public IList<PackageGroup> PackageGroups
         {
             get { return _packageGroups; }
             set { _packageGroups = value; }
@@ -100,7 +89,7 @@ namespace PackageDistributionService.Core.Domain
         /// <summary>
         /// list of pos call logs on which this package has been deployed
         /// </summary>
-        public IList<IPosCallLog> PosCallLogs
+        public IList<PosCallLog> PosCallLogs
         {
             get { return _posCallLogs; }
             set { _posCallLogs = value; }

@@ -11,14 +11,14 @@ namespace PackageDistributionService.Data.DaoImplementations
     /// Concrete DAO for accessing instances of <see cref="PackageGroup" /> from DB.
     /// </summary>
     [Repository]
-    public class PackageGroupDao : AbstractNHibernateDao<IPackageGroup, int>, IPackageGroupDao
+    public class PackageGroupDao : AbstractNHibernateDao<PackageGroup, int>, IPackageGroupDao
     {
         /// <summary>
         /// Get all by package version id
         /// </summary>
         /// <param name="packageVersionId"></param>
         /// <returns></returns>
-        public IList<IPackageGroup> GetAllByPackageVersionId(int packageVersionId)
+        public IList<PackageGroup> GetAllByPackageVersionId(int packageVersionId)
         {
             var criterion = new List<ICriterion>
                 {
